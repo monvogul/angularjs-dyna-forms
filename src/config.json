@@ -1,0 +1,173 @@
+{
+  "PageHeading": "",
+  "viewType": "Accordion",
+  "formClass":"testFormClass container",
+  "groupViewList": [
+    {
+      "groupHeading": "Contact Form",
+       "fieldList": [
+        {
+          "fieldModel": "name",
+          "labelname": "Full Name",
+          "type": "text",
+          "onchange":"myapp",
+          "order": 1,
+          "showRule":"{}" ,
+          "editableRule":"{}" ,
+          "labelClass": "col-sm-2 col-form-label",
+          "fieldClass": "col-sm-10 form-control",
+          "labelandFieldWrapper":"div[form-group row]",
+          "fieldPlaceholder":"Full Name",
+          "isDisabled" : false,
+          "validations":[{"ng-maxLength":4},{"ng-required":"true" }, {"ng-pattern" : "/^[a-zA-Z\\s]*$/"}]
+
+        },
+        {
+          "fieldModel": "age",
+          "labelname": "Age",
+          "type": "number",
+          "order": 1,
+          "onchange":"myapp",
+          "labelClass": "col-sm-2 col-form-label",
+          "fieldClass": "col-sm-10 form-control",
+          "labelandFieldWrapper":"div[form-group row]",
+          "fieldPlaceholder":"Age",
+          "isReadOnly" : true,
+          "readonlyRule": [{"onField":"name","onValue":""},{"onField":"state","notValue":"VIC"}]
+
+        },
+        {
+          "fieldModel": "pwd",
+          "labelname": "Password",
+          "type": "password",
+          "order": 3,
+          "labelClass": "col-sm-2 col-form-label",
+          "fieldClass": "col-sm-10 form-control",
+          "labelandFieldWrapper":"div[form-group row]",
+          "fieldPlaceholder":"Password"
+
+        },
+         {
+           "fieldModel": "email",
+           "labelname": "Email",
+           "type": "email",
+           "order": 4,
+           "labelClass": "col-sm-2 col-form-label",
+           "fieldClass": "col-sm-10 form-control",
+           "labelandFieldWrapper":"div[form-group row]",
+           "fieldPlaceholder":"Email"
+
+         },
+         {
+           "fieldModel": "dob",
+           "labelname": "Date of Birth",
+           "type": "date",
+           "showDatePicker": true,
+           "inputFormat": "DD/MM/YYYY",
+           "saveFormat": "YY-MMMM-DD",
+           "displayFormat": "DD-MMMM-YYYY"  ,
+           "order": 4,
+           "labelClass": "col-sm-2 col-form-label",
+           "fieldClass": "col-sm-10 form-control",
+           "labelandFieldWrapper":"div[form-group row]",
+           "fieldPlaceholder":"DD/MM/YYYY"
+
+         },
+
+         {
+           "fieldModel": "month",
+           "labelname": "Month of Birth",
+           "type": "month",
+           "order": 5,
+           "labelClass": "col-sm-2 col-form-label",
+           "fieldClass": "col-sm-10 form-control",
+           "labelandFieldWrapper":"div[form-group row]",
+           "fieldPlaceholder":"Fave Month"
+
+         },
+
+         {
+           "fieldModel": "state",
+           "labelname": "State",
+           "type": "select",
+           "onchange":"myapp",
+
+           "order": 5,
+           "options":[{"stateName":"VICTORIA", "ABBR":"VIC"},{"stateName":"WESTERN AUSTRALIA", "ABBR":"WA"},{"stateName":"QUEENSLAND", "ABBR":"QLD"}],
+           "labelClass": "col-sm-2 col-form-label",
+           "fieldClass": "col-sm-10 form-control",
+           "labelandFieldWrapper":"div[form-group row]",
+           "optionsDisplay": "stateName",
+           "defaultOptionStr": "Select state"
+         },
+         {
+           "fieldModel": "selectedCountry",
+           "labelname": "Country",
+           "type": "selectRef",
+           "order": 6,
+           "optionsModel":"countries",
+           "labelClass": "col-sm-2 col-form-label",
+           "fieldClass": "col-sm-10 form-control",
+           "labelandFieldWrapper":"div[form-group row]",
+           "optionsDisplay": "name",
+           "defaultOptionStr": "Select Country"
+         },
+         {
+           "fieldModel": "married",
+           "labelname": "Married",
+           "type": "checkbox",
+           "onchange":"myapp",
+
+           "order": 7,
+           "labelClass": "",
+           "fieldClass": ""
+         },
+
+         {
+           "fieldModel": "completed",
+           "labelname": "Completed",
+            "type": "radio",
+           "order": 8,
+           "options":[{"label":"Yes", "value":"Y"},{"label":"No", "value":"N"}],
+           "labelClass": "",
+           "fieldClass": ""
+         },
+         {
+           "fieldModel": "married",
+           "labelname": "Married",
+           "type": "styled-checkbox",
+           "labelClass": "col-sm-2 col-form-label",
+           "fieldClass": "col-sm-10 form-control",
+           "labelandFieldWrapper":"div[form-group row]",
+           "order": 9
+         },
+         {
+           "type": "customTemplate",
+           "template":"<div class='alert alert-warning'> Hello from widget</div>",
+           "order": 10
+         },
+
+         {
+           "type":"file",
+           "fieldModel": "resume",
+           "labelname": "Upload your resume",
+           "labelClass": "mr-4",
+           "fieldClass":"",
+           "order": 11
+
+
+         },
+
+         {
+           "type": "img" ,
+           "src":"https://images.unsplash.com/photo-1496389395181-e5fdd5c0315e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=49bd31ab070ce144fe11d9df225d1d4c&auto=format&fit=crop&w=1946&q=80",
+           "fieldClass": "myImg"
+         }
+
+
+
+
+       ]
+    }
+  ]
+}

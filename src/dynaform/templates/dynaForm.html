@@ -1,0 +1,24 @@
+
+ <form name='form' novalidate ng-class="formConfigData.formClass ?  formConfigData.formClass : ''">
+
+            <ng-form name="dynaForm1">
+                <span ng-repeat="view in formConfigData.groupViewList">
+
+            <span ng-repeat="field in view.fieldList | orderBy:'order'" ng-init="fieldname = field.fieldModel">
+              <field-item content="field" save-model="formModelData">
+              </field-item>
+             </span>
+
+
+    <h3> Test Area</h3>
+
+
+
+    <textarea style="width:100%;height:200px" cols="400" obj-edit ng-model="view.fieldList"> </textarea>
+                </span>
+            </ng-form>
+        </div>
+     <!-- inject-style src="./src/dynaform/css/styles.css" -->
+
+  </form>
+

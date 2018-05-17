@@ -1,0 +1,26 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "angular": "^1.6.9",
+    "angular-moment": "^1.2.0",
+    "moment": "^2.21.0",
+    "npm": "^5.7.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.23.6",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-html2js": "^0.4.2",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-style-inject": "^0.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gulp"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,69 @@
+
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Title</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+              integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+              crossorigin="anonymous">
+        <script src="node_modules/angular/angular.min.js"></script>
+
+
+        <script src="dist/js/dynaForm.min.js"></script>
+
+        <script src="src/app.js"></script>
+        <script
+                src="https://code.jquery.com/jquery-3.3.1.min.js"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                crossorigin="anonymous"></script>
+
+
+
+    </head>
+
+
+    <body ng-app="myExampleApp">
+    <style>
+        .testFormClass{
+            box-shadow: -5px 10px 18px #d3d3d3;
+            border: 1px solid #d3d3d3;
+            padding:2em;
+        }
+
+        .myImg{
+            height: 300px;
+            border: 1px dotted dimgrey;
+        }
+        .custom-file-control:before {
+            content: "Browse" !important;
+        }
+
+        input.ng-invalid{
+            border-left:5px solid red;
+        }
+    </style>
+
+<div class="card" role="alert" ng-controller="myCtrl">
+    <div class="alert alert-warning" role="alert">
+        <strong>This is my app</strong>
+    </div>
+    <div class="container">
+
+    <dyna-form form-config-json="/src/config.json" form-model-data="myExampleModel" form-model-json="" form-config-data="formData"></dyna-form>
+
+    </div>
+    {{myExampleModel | json}}
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+
+
+</body>
+</html>

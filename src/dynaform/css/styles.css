@@ -1,0 +1,13 @@
+input[type='date']:before {
+    position: absolute;
+    padding: 5px 0;
+    content: attr(data-date);
+    display: inline-block;
+}
+
+
+input[type='date']::-webkit-clear-button, input::-webkit-datetime-edit,
+input::-webkit-inner-spin-button {
+  /* display: none;*/
+    visibility: hidden;
+}
