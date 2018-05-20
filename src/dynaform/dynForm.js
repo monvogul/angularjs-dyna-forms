@@ -59,6 +59,7 @@ app.directive('fieldItem', ['$compile', function ($compile) {
                         if (elementTmp) {
                             //Set name attribute
                             elementTmp.setAttribute("name",scope.content.fieldModel);
+                            //TODO: currently datepicker is not supported. Need to work on integrating with 3rd party tool.
                             if(scope.content.type === 'date' && !scope.content.showDatePicker){
                                 elementTmp.setAttribute("type","text") ;
                             }
@@ -110,6 +111,10 @@ app.directive('formatDtm', ['moment', function(moment) {
                     ctrl.$setValidity('date', true);
 
 
+                    element[0].setAttribute('data-date', dispDate);
+                    ctrl.$setValidity('date', true);
+
+
                     return (attrs.type === 'text') ? dispDate : new Date(value) ;
                 }catch (err){
                     ctrl.$setValidity('date', false);
@@ -118,10 +123,7 @@ app.directive('formatDtm', ['moment', function(moment) {
             });
             ctrl.$parsers.push(function (value) {
                 try {
-                    var dispDate = moment(value).format(dispFormat);
-                    element[0].setAttribute('data-date', dispDate);
-
-                    var saveFormatDtm = moment(value).format(saveFormat);
+                    var saveFormatDtm = moment(value, dispFormat).format(saveFormat);
                     ctrl.$setValidity('date', true);
                     return saveFormatDtm;
                 }catch (err){

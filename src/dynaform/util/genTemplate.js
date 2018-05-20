@@ -6,10 +6,13 @@ var INPUT_TYPE_CONTROL = '<input ng-change="content.onchange ? callAction() : vo
     ' placeholder="{{content.fieldPlaceholder}}" ng-model="saveModel[content.fieldModel]" ' +
     ' ng-disabled="content.isDisabled === true" class="{{content.fieldClass}}">';
 
+var TEXT_AREA_CONTROL = '<textarea ng-change="content.onchange ? callAction() : void" ' +
+' rows="{{content.rows}}" cols="{{content.cols}}" ng-model="saveModel[content.fieldModel]" ' +
+' ng-disabled="content.isDisabled === true" class="{{content.fieldClass}}">' ;
 
-var DATE_TYPE_CONTROL = '<input style="position:relative" id="dtm" ng-chnge="content.onchange ? callAction() : void"' +
+var DATE_TYPE_CONTROL = '<input ng-chnge="content.onchange ? callAction() : void"' +
     ' input-format="{{content.inputFormat}}" save-format="{{content.saveFormat}}" display-format="{{content.displayFormat}}" '+
-    ' placeholder="{{content.fieldPlaceholder}}" type="date" format-dtm data-date="" ' +
+    ' placeholder="{{content.fieldPlaceholder}}" type="text" format-dtm data-date="" ' +
     ' ng-model="saveModel[content.fieldModel]" ' +
     ' ng-disabled="content.isDisabled === true" class="{{content.fieldClass}}" >' ;
 
@@ -46,12 +49,11 @@ var SEL_REF_CONTROL =  '<select class="form-control {{content.fieldClass}}" ng-c
 
 var INPUT_TEMPLATE = INPUT_TYPE_LABEL + " " + INPUT_TYPE_CONTROL;
 var DATE_TEMPLATE = DATE_TYPE_LABEL + " " + DATE_TYPE_CONTROL ;
-
 var CHK_TEMPLATE =  CHK_TYPE_CONTROL ;
 var RADIO_TEMPLATE = INPUT_TYPE_LABEL + " " + RADIO_TYPE_CONTROL ;
 
-
-//TODO: figure out how to disable this
+var TEXT_AREA_TEMPLATE = INPUT_TYPE_LABEL + " " + TEXT_AREA_CONTROL ;
+ //TODO: figure out how to disable this
 var STYLED_CHK_TEMPLATE  = '<label class="custom-control custom-checkbox">' +
     '<input type="checkbox" ng-change="content.onchange ? callAction() : void"  class="custom-control-input" ng-model="saveModel[content.fieldModel]">' +
     '<span class="custom-control-indicator"></span>' +
@@ -94,9 +96,10 @@ function getTemplate(fieldType, fieldWrapper) {
     switch (fieldType) {
         case 'text':
             template = getFieldWrapper(fieldWrapper, INPUT_TEMPLATE.replace('getType', 'text'));
-
             break;
-
+        case 'textarea':
+            template = getFieldWrapper(fieldWrapper, TEXT_AREA_TEMPLATE);
+            break;
         case 'number':
             template = getFieldWrapper(fieldWrapper, INPUT_TEMPLATE.replace('getType', 'number'));
             break;
@@ -109,10 +112,6 @@ function getTemplate(fieldType, fieldWrapper) {
         case 'date': //TODO: revisit
             template = getFieldWrapper(fieldWrapper, DATE_TEMPLATE);
             break;
-        case 'month': //TODO: revisit
-            template = getFieldWrapper(fieldWrapper, INPUT_TEMPLATE.replace('getType', 'month'));
-            break;
-
         case 'checkbox':
              template = getFieldWrapper(fieldWrapper, CHK_TEMPLATE.replace('getType', 'checkbox'));
             break;

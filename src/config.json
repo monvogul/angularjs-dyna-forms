@@ -1,7 +1,5 @@
 {
-  "PageHeading": "",
-  "viewType": "Accordion",
-  "formClass":"testFormClass container",
+ "formClass":"testFormClass container",
   "groupViewList": [
     {
       "groupHeading": "Contact Form",
@@ -62,27 +60,26 @@
            "fieldModel": "dob",
            "labelname": "Date of Birth",
            "type": "date",
-           "showDatePicker": true,
            "inputFormat": "DD/MM/YYYY",
-           "saveFormat": "YY-MMMM-DD",
-           "displayFormat": "DD-MMMM-YYYY"  ,
+           "saveFormat": "DD-MM-YYYY",
+           "displayFormat": "DD-MMM-YY",
            "order": 4,
            "labelClass": "col-sm-2 col-form-label",
            "fieldClass": "col-sm-10 form-control",
-           "labelandFieldWrapper":"div[form-group row]",
-           "fieldPlaceholder":"DD/MM/YYYY"
+           "labelandFieldWrapper":"div[form-group row]"
 
          },
-
          {
-           "fieldModel": "month",
-           "labelname": "Month of Birth",
-           "type": "month",
-           "order": 5,
-           "labelClass": "col-sm-2 col-form-label",
-           "fieldClass": "col-sm-10 form-control",
-           "labelandFieldWrapper":"div[form-group row]",
-           "fieldPlaceholder":"Fave Month"
+         "fieldModel": "timeOfBirth",
+         "labelname": "Time of Birth",
+         "type": "date",
+         "inputFormat": "hh:mm",
+         "saveFormat": "HH:mm",
+         "displayFormat": "hh:mm A",
+         "order": 4,
+         "labelClass": "col-sm-2 col-form-label",
+         "fieldClass": "col-sm-10 form-control",
+         "labelandFieldWrapper":"div[form-group row]"
 
          },
 
@@ -140,6 +137,17 @@
            "fieldClass": "col-sm-10 form-control",
            "labelandFieldWrapper":"div[form-group row]",
            "order": 9
+         },
+         {
+           "fieldModel": "comments",
+           "labelname": "Some Comments",
+           "type": "textarea",
+           "rows": "5",
+           "cols":"50",
+           "labelClass": "col-sm-2 col-form-label",
+           "fieldClass": "col-sm-10 form-control",
+           "labelandFieldWrapper":"div[form-group row]",
+           "order": 10
          },
          {
            "type": "customTemplate",

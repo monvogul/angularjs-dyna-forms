@@ -26,7 +26,7 @@ $templateCache.put("dynaForm.html","\n" +
     "            </ng-form>\n" +
     "        </div>\n" +
     "     <style>\n" +
-    "input[type='date']:before {\n" +
+    "/*input[type='date']:before {\n" +
     "    position: absolute;\n" +
     "    padding: 5px 0;\n" +
     "    content: attr(data-date);\n" +
@@ -36,10 +36,9 @@ $templateCache.put("dynaForm.html","\n" +
     "\n" +
     "input[type='date']::-webkit-clear-button, input::-webkit-datetime-edit,\n" +
     "input::-webkit-inner-spin-button {\n" +
-    "  /* display: none;*/\n" +
     "    visibility: hidden;\n" +
     "}\n" +
-    "\n" +
+    "*/\n" +
     "</style>\n" +
     "\n" +
     "  </form>\n" +
