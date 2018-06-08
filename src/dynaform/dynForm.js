@@ -41,9 +41,21 @@ app.directive('fieldItem', ['$compile', function ($compile) {
                 return ;
 
             angular.forEach(ngValidations, function (valObj) {
-                var validation = Object.keys(valObj);
+
+                var validation = Object.keys(valObj).toString();
                 var value = valObj[validation];
-                elementTmp.setAttribute(validation, value);
+
+                var validationName = validation.indexOf("min") != -1 ? "min" : "max" ;
+
+                if("min-var" === validation || "max-var" === validation) {
+                    var evaluatedVal= eval("scope.saveModel" + "."  + value );
+                    elementTmp.setAttribute(validationName,evaluatedVal);
+                }else if(validation === "min-val" || validation === "max-val") {
+                    elementTmp.setAttribute(validationName,value);
+                }
+                else{
+                    elementTmp.setAttribute(validation, value);
+                }
             });
 
         }
@@ -59,10 +71,10 @@ app.directive('fieldItem', ['$compile', function ($compile) {
                         if (elementTmp) {
                             //Set name attribute
                             elementTmp.setAttribute("name",scope.content.fieldModel);
-                            //TODO: currently datepicker is not supported. Need to work on integrating with 3rd party tool.
-                            if(scope.content.type === 'date' && !scope.content.showDatePicker){
-                                elementTmp.setAttribute("type","text") ;
-                            }
+                            // //TODO: currently datepicker is not supported. Need to work on integrating with 3rd party tool.
+                            // if(scope.content.type === 'date' && !scope.content.showDatePicker){
+                            //     elementTmp.setAttribute("type","text") ;
+                            // }
                             //set validations
                             scope.addValidations() ;
                         }
@@ -98,40 +110,106 @@ app.directive('formatDtm', ['moment', function(moment) {
             var inputFormat = attrs.inputFormat ? attrs.inputFormat : 'DD/MM/YYYY';
             var saveFormat = attrs.saveFormat ;
             var dispFormat = attrs.displayFormat ? attrs.displayFormat  : 'DD/MM/YYYY';
+            var dateType = attrs.dateType  ;
+            var minVal = attrs.min   ;
+            var maxVal = attrs.max ;
 
+            console.log(attrs) ;
 
             ctrl.$formatters.push(function formatter(value) {
+
+                var displayDate = "" ;
+
                  if(!value) {
                     element[0].setAttribute('data-date',attrs.placeholder ? attrs.placeholder : '') ;
                     return null;
                 }
                 try {
-                    var dispDate = moment(value, inputFormat).format(dispFormat);
-                    element[0].setAttribute('data-date', dispDate);
-                    ctrl.$setValidity('date', true);
+                    //set date to the display format
+                    displayDate = moment(value, inputFormat,true).format(dispFormat) ;
+                    element[0].setAttribute('data-date', displayDate);
 
+                    //Check date validity
+                    var isValidMinMax = true ;
+                    if(dateType === 'date') {
+                        isValidMinMax =  _validateDateRange(value, inputFormat);
+                    }else if(dateType == 'time'){
+                        isValidMinMax = _validateTimeRange(value,inputFormat);
+                    }
+                    ctrl.$setValidity(dateType, true);
 
-                    element[0].setAttribute('data-date', dispDate);
-                    ctrl.$setValidity('date', true);
+                    //Set date validity
+                    if(!isValidMinMax) {
+                        ctrl.$setValidity(dateType +'Range', isValidMinMax);
+                        return undefined ;
+                    }
 
-
-                    return (attrs.type === 'text') ? dispDate : new Date(value) ;
+                    return (attrs.type === 'text') ? displayDate : new Date(value) ;
                 }catch (err){
-                    ctrl.$setValidity('date', false);
-                    return undefined;
+                    ctrl.$setValidity(dateType, false);
+                    return undefined ;
                 }
             });
             ctrl.$parsers.push(function (value) {
                 try {
-                    var saveFormatDtm = moment(value, dispFormat).format(saveFormat);
-                    ctrl.$setValidity('date', true);
+                    var saveFormatDtm = moment(value, dispFormat,true).format(saveFormat);
+
+                     if(!moment(value, dispFormat,true).isValid())
+                         throw "Invalid "+ dateType + ": " +  value ;
+
+                    //check date for min max
+                    var isValidMinMax = true ;
+                    if(dateType === 'date') {
+                        isValidMinMax =  _validateDateRange(value, dispFormat);
+                    }else if(dateType == 'time'){
+                        isValidMinMax = _validateTimeRange(value,dispFormat);
+                    }
+
+                    ctrl.$setValidity(dateType, true);
+                    if(!isValidMinMax) {
+                        ctrl.$setValidity(dateType +'Range', isValidMinMax);
+                        return undefined ;
+                    }
                     return saveFormatDtm;
                 }catch (err){
-                        ctrl.$setValidity('date', false);
+                        ctrl.$setValidity(dateType, false);
                         return undefined;
                 }
 
             });
+
+            var _validateDateRange = function(dtmValue, format){
+                var isValidMinMax = true;
+                if(minVal && maxVal)
+                    isValidMinMax = moment(dtmValue, format,true).isBetween(minVal,maxVal) ;
+                else if(minVal)
+                    isValidMinMax = moment(dtmValue, format,true).isAfter(minVal) ;
+                else if(maxVal)
+                    isValidMinMax = moment(dtmValue, format).isBefore(maxVal) ;
+                return isValidMinMax ;
+            }
+            var _validateTimeRange = function(dtmValue, format){ //TODO:document that it is assumed time min and max will be 24 hour format
+                var minTime;
+                var maxTime;
+                var isValidMinMax = true;
+                //Format min and max value as moment values
+                if(minVal)
+                     minTime = moment(minVal, "HH:mm:ss");
+                if(maxVal)
+                    maxTime = moment(maxVal, "HH:mm:ss");
+
+                console.log(minTime, maxTime) ;
+                if(minVal && maxVal)
+                    isValidMinMax = moment(dtmValue, format,true).isBetween(minTime,maxTime) ;
+                else if(minVal)
+                    isValidMinMax = moment(dtmValue, format,true).isAfter(minTime) ;
+                else if(maxVal)
+                    isValidMinMax = moment(dtmValue, format).isBefore(maxTime) ;
+                return isValidMinMax ;
+
+
+
+            }
       }
     }
 }]);

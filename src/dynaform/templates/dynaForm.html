@@ -1,5 +1,5 @@
 
- <form name='form' novalidate ng-class="formConfigData.formClass ?  formConfigData.formClass : ''">
+ <form name='form' ng-model-options="{ updateOn: 'default blur'}" novalidate ng-class="formConfigData.formClass ?  formConfigData.formClass : ''">
 
             <ng-form name="dynaForm1">
                 <span ng-repeat="view in formConfigData.groupViewList">

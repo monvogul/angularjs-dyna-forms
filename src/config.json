@@ -66,21 +66,21 @@
            "order": 4,
            "labelClass": "col-sm-2 col-form-label",
            "fieldClass": "col-sm-10 form-control",
-           "labelandFieldWrapper":"div[form-group row]"
-
+           "labelandFieldWrapper":"div[form-group row]",
+           "validations":[{"max-var":"myMaxDate"}, {"min-var" : "someObject.myMinDate" }]
          },
          {
          "fieldModel": "timeOfBirth",
          "labelname": "Time of Birth",
-         "type": "date",
+         "type": "time",
          "inputFormat": "hh:mm",
          "saveFormat": "HH:mm",
          "displayFormat": "hh:mm A",
          "order": 4,
          "labelClass": "col-sm-2 col-form-label",
          "fieldClass": "col-sm-10 form-control",
-         "labelandFieldWrapper":"div[form-group row]"
-
+         "labelandFieldWrapper":"div[form-group row]",
+          "validations":[{"min-val":"08:50"}, {"max-val" : "24:00" }]
          },
 
          {
@@ -135,7 +135,7 @@
            "type": "styled-checkbox",
            "labelClass": "col-sm-2 col-form-label",
            "fieldClass": "col-sm-10 form-control",
-           "labelandFieldWrapper":"div[form-group row]",
+           "labelandFieldWrapper":"div",
            "order": 9
          },
          {
@@ -146,7 +146,7 @@
            "cols":"50",
            "labelClass": "col-sm-2 col-form-label",
            "fieldClass": "col-sm-10 form-control",
-           "labelandFieldWrapper":"div[form-group row]",
+           "labelandFieldWrapper":"span,div[form-group row]",
            "order": 10
          },
          {

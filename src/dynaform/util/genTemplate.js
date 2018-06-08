@@ -10,9 +10,9 @@ var TEXT_AREA_CONTROL = '<textarea ng-change="content.onchange ? callAction() : 
 ' rows="{{content.rows}}" cols="{{content.cols}}" ng-model="saveModel[content.fieldModel]" ' +
 ' ng-disabled="content.isDisabled === true" class="{{content.fieldClass}}">' ;
 
-var DATE_TYPE_CONTROL = '<input ng-chnge="content.onchange ? callAction() : void"' +
+var DATE_TYPE_CONTROL = '<input ng-change="content.onchange ? callAction() : void"' +
     ' input-format="{{content.inputFormat}}" save-format="{{content.saveFormat}}" display-format="{{content.displayFormat}}" '+
-    ' placeholder="{{content.fieldPlaceholder}}" type="text" format-dtm data-date="" ' +
+    ' placeholder="{{content.fieldPlaceholder}}" date-type="{{content.type}}"  type="text" format-dtm data-date="" ' +
     ' ng-model="saveModel[content.fieldModel]" ' +
     ' ng-disabled="content.isDisabled === true" class="{{content.fieldClass}}" >' ;
 
@@ -69,23 +69,45 @@ var IMG_TEMPLATE = '<img ng-src="{{content.src}}" class="{{content.fieldClass}}"
 var FILE_UPLOAD_TEMPLATE = INPUT_TYPE_LABEL + " " + FILE_UPLOAD_CONTROL ;
 
 
-function getFieldWrapper(fieldWrapper, template){
+function getFieldWrapper(fieldWrappers, template){
 
-    if(!fieldWrapper)
+    if(!fieldWrappers)
         return template;
 
     try {
-        var wrapperContent = fieldWrapper.split('[');
-        var wrapperContainer = wrapperContent[0];
-        var wrapperClass = wrapperContent[1].replace(']','');
+        var templateWithWrapper = "" ;
 
-        var templateWithWrapper = "<" + wrapperContainer + " class = '" + wrapperClass +" ' " + ">" + template + "</" + wrapperContainer +">" ;
+        var allWrappers = fieldWrappers.split(',');
+        var wrapperNames =[] ;
 
+
+        for(var i=0 ;i< allWrappers.length ; i++)
+        {
+            var wrapperContent = allWrappers[i].split('[');
+
+            if(wrapperContent.length > 1) {
+                var wrapperContainer = wrapperContent[0];
+                wrapperNames.push(wrapperContainer);
+                var wrapperClass = wrapperContent[1].replace(']', '');
+                templateWithWrapper+=  "<"  + wrapperContainer + " class='" + wrapperClass +"'" + "> "   ;
+            }else{
+                wrapperContainer = wrapperContent ;
+                wrapperNames.push(wrapperContainer);
+                templateWithWrapper+=  "<"  + wrapperContainer + "> "   ;
+        }
+
+        }
+
+        templateWithWrapper += template ;
+
+        for(var i=wrapperNames.length-1; i>=0; i--){
+            templateWithWrapper+=  " </"  + wrapperNames[i]  + ">";
+        }
 
     }catch(ex){
-        console.log("Invalid format for wrapper. Example: div[class1 class2 ......] ") ;
+        console.log("Invalid format for wrapper. Example: div[class1 class2],span[class=3 class=4]... ", ex.message) ;
     }
-   return templateWithWrapper ;
+   return   templateWithWrapper ;
 
 
 }
@@ -109,7 +131,7 @@ function getTemplate(fieldType, fieldWrapper) {
         case 'email':
             template = getFieldWrapper(fieldWrapper, INPUT_TEMPLATE.replace('getType', 'email'));
             break;
-        case 'date': //TODO: revisit
+        case 'date' : case 'time':
             template = getFieldWrapper(fieldWrapper, DATE_TEMPLATE);
             break;
         case 'checkbox':
