@@ -14,7 +14,6 @@
 
 
         <script src="dist/js/dynaForm.min.js"></script>
-        <script src="src/config.json"></script>
 
         <script src="src/app.js"></script>
         <script
@@ -53,7 +52,7 @@
         <strong>This is my app</strong>
     </div>
     <div class="container">
-        <dyna-form form-config-json="/src/config.json" form-model-data="myExampleModel" form-model-json="" form-config-data="formData"></dyna-form>
+        <dyna-form form-config-json="src/config.json" form-model-data="myExampleModel" form-model-json="" form-config-data="formData"></dyna-form>
     </div>
     {{myExampleModel | json}}
 </div>
