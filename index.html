@@ -1,67 +1,147 @@
-
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Example AngularJS Dyna Forms</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-              integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
-              crossorigin="anonymous">
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-
-
-        <script src="dist/js/dynaForm.min.js"></script>
-
-        <script src="src/app.js"></script>
-        <script
-                src="https://code.jquery.com/jquery-3.3.1.min.js"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-                crossorigin="anonymous"></script>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Example AngularJS Dyna Forms</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+          crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
 
+    <script src="dist/js/dynaForm.min.js"></script>
 
-    </head>
+    <script src="src/app.js"></script>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
 
 
-    <body ng-app="myExampleApp">
-    <style>
-        .testFormClass{
-            box-shadow: -5px 10px 18px #d3d3d3;
-            border: 1px solid #d3d3d3;
-            padding:2em;
-        }
+</head>
 
-        .myImg{
-            height: 300px;
-            border: 1px dotted dimgrey;
-        }
-        .custom-file-control:before {
-            content: "Browse" !important;
-        }
 
-        input.ng-invalid{
-            border-left:5px solid red;
-        }
-    </style>
+<body ng-app="myExampleApp" ng-controller="myCtrl">
+<style>
+    * {
+        box-sizing: border-box;
+    }
 
-<div class="card" role="alert" ng-controller="myCtrl">
+    .testFormClass {
+        box-shadow: -5px 10px 18px #d3d3d3;
+        border: 1px solid #d3d3d3;
+        padding: 2em;
+    }
+
+    .myImg {
+        height: 100px;
+        display: block;
+        border: 1px double dimgrey;
+    }
+
+    .custom-file-control:before {
+        content: "Browse" !important;
+    }
+
+    input.ng-invalid {
+        border-left: 5px solid red;
+    }
+
+    .testArea {
+        border: 1px double #b8b8b8;
+        padding: 1em;
+        margin-top: 1em;
+    }
+
+    .rel {
+        position: relative;
+    }
+
+    .abs {
+        position: absolute;
+    }
+
+    .showTest:after {
+        content: '-';
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .hideTest:after {
+        content: '+';
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .ta_header {
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #222222;
+        display: block;
+        color: #FFFFFF;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    div#toggleTestArea {
+        transition: all .5s ease-out;
+    }
+
+    div#toggleTestArea.collapsed {
+        opacity: 0;
+        max-height: 0;
+    }
+
+    div#toggleTestArea.expanded {
+        opacity: 1;
+        max-height: 600px;
+        height: auto;
+
+    }
+</style>
+
+<div role="alert">
     <div class="alert alert-warning" role="alert">
-        <strong>This is my app</strong>
+        <strong>This is my example app</strong>
     </div>
     <div class="container">
-        <dyna-form form-config-json="src/config.json" form-model-data="myExampleModel" form-model-json="" form-config-data="formData"></dyna-form>
+        <dyna-form form-config-json="src/config.json" form-model-data="myExampleModel" form-model-json=""
+                   form-config-data="formData"></dyna-form>
     </div>
-    {{myExampleModel | json}}
 </div>
+
+<!-- Test Area -->
+<div class="container rel" ng-class="showTestArea? 'testArea' : ' '">
+    <div class="ta_header abs"><b>Test Area</b>
+        <span class="float-right" ng-model="showTestArea" ng-class="showTestArea? 'showTest' : 'hideTest'"
+              ng-click="showTestArea = !showTestArea"></span>
+    </div>
+    <div id="toggleTestArea" class="mt-5" ng-class="showTestArea? 'expanded' : 'collapsed'">
+
+        <b><i>Config Json Data</i></b>
+        <br/>
+        <textarea style="width:100%;height:200px" cols="400" obj-edit
+                  ng-model="formData.groupViewList[0].fieldList"> </textarea>
+        <br/>
+        <b><i>Model Json Data</i></b>
+
+        <textarea style="width:100%;height:200px" cols="400" name="text_model" obj-edit
+                  ng-model="myExampleModel"> </textarea>
+
+    </div>
+
+</div>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
         crossorigin="anonymous"></script>
-
 
 </body>
 </html>
